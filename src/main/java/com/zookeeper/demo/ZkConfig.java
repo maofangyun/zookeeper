@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ZkConfig {
 
-    @Bean(initMethod = "init", destroyMethod = "stop")
+    @Bean
     public ZkClient zkClient(){
         return new ZkClient();
     }
