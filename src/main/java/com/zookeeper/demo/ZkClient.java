@@ -9,6 +9,7 @@ import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.Stat;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.annotation.PostConstruct;
 
@@ -18,8 +19,10 @@ import javax.annotation.PostConstruct;
 public class ZkClient {
 
     private CuratorFramework curatorFramework;
-    private final static String CONNECT_URL = "192.168.174.128:2181";
-    private final static int SESSION_TIMEOUT = 50*1000;
+    @Value("${ZooKeeper.Connect.Url}")
+    private String CONNECT_URL;
+    @Value("${ZooKeeper.Session.TimeOut}")
+    private int SESSION_TIMEOUT;
 
     @PostConstruct
     public void init(){
@@ -33,8 +36,8 @@ public class ZkClient {
         curatorFramework.close();
     }
 
-    public ZooKeeper getInstance() throws Exception {
-        return curatorFramework.getZookeeperClient().getZooKeeper();
+    public CuratorFramework getInstance(){
+        return curatorFramework;
     }
 
     protected class OneWatch implements Watcher{
