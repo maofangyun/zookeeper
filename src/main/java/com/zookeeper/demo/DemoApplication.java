@@ -20,7 +20,7 @@ public class DemoApplication {
         //System.out.println(new String(data2));
         //Thread.sleep(Long.MAX_VALUE);
         ZkLock zkLock = ac.getBean(ZkLock.class);
-        for(int i=0; i<4; i++){
+        for(int i=0; i<10; i++){
             Thread thread = new Thread(new ThreadTest(""+i,zkLock),"Thread-"+i);
             thread.start();
         }
@@ -43,6 +43,11 @@ public class DemoApplication {
             zkLock.setValue(value);
             System.out.println(Thread.currentThread().getName()+"尝试获取锁！");
             zkLock.lock();
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             System.out.println(Thread.currentThread().getName()+"释放锁！");
             zkLock.unlock();
         }

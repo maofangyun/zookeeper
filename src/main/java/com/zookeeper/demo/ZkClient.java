@@ -10,12 +10,14 @@ import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.Stat;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
 /**
  * zookeeper的客户端
  * */
+@Component
 public class ZkClient {
 
     private CuratorFramework curatorFramework;
